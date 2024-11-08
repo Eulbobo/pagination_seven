@@ -15,4 +15,15 @@ public class PaginationTest {
         pagination.displayTo(displayer);
         verify(displayer).print("(1) 2 3 4 5");
     }
+
+    @Test
+    void should_highlight_2_when_created_with_5_pages_and_page_2_is_selected() {
+        Displayer displayer = mock(Displayer.class);
+        Pagination pagination = Pagination.withPages(5);
+
+        pagination.selectPage(2);
+
+        pagination.displayTo(displayer);
+        verify(displayer).print("1 (2) 3 4 5");
+    }
 }
