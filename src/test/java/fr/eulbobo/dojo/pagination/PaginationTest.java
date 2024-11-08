@@ -26,4 +26,15 @@ public class PaginationTest {
         pagination.displayTo(displayer);
         verify(displayer).print("1 (2) 3 4 5");
     }
+
+    @Test
+    void should_highlight_6_when_created_with_7_pages_and_page_6_is_selected() {
+        Displayer displayer = mock(Displayer.class);
+        Pagination pagination = Pagination.withPages(7);
+
+        pagination.selectPage(6);
+
+        pagination.displayTo(displayer);
+        verify(displayer).print("1 2 3 4 5 (6) 7");
+    }
 }
