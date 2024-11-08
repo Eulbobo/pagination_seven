@@ -1,30 +1,29 @@
 package fr.eulbobo.dojo.pagination;
 
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
 public class Pagination {
 
     private final int totalPages;
+    private final int maxPagesToDisplay;
+    private final PageDisplay fullPageDisplay = new FullPageDisplay();
+    private final PageDisplay partialPageDisplay = new PartialPageDisplay();
     private int selectedPage = 1;
 
-    private Pagination(int totalPages) {
+
+    private Pagination(int totalPages, int maxPagesToDisplay) {
         this.totalPages = totalPages;
+        this.maxPagesToDisplay = maxPagesToDisplay;
     }
 
     public static Pagination withPages(int totalPages) {
-        return new Pagination(totalPages);
+        return new Pagination(totalPages, 7);
     }
 
     public void displayTo(Displayer displayer) {
-        String toDisplay = IntStream.range(1, totalPages + 1).mapToObj(value -> {
-            if (selectedPage == value) {
-                return "(" + value + ")";
-            }
-            return String.valueOf(value);
-        }).collect(Collectors.joining(" "));
-
-        displayer.print(toDisplay);
+        if (totalPages <= maxPagesToDisplay) {
+            fullPageDisplay.displayWith(displayer, totalPages, selectedPage);
+        } else {
+            partialPageDisplay.displayWith(displayer, totalPages, selectedPage);
+        }
     }
 
     public void selectPage(int i) {

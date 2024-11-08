@@ -37,4 +37,19 @@ public class PaginationTest {
         pagination.displayTo(displayer);
         verify(displayer).print("1 2 3 4 5 (6) 7");
     }
+
+    @Test
+    void should_highlight_page_in_middle_of_list_if_list_has_a_lot_of_pages() {
+        Displayer displayer = mock(Displayer.class);
+        Pagination pagination = Pagination.withPages(100);
+
+        pagination.selectPage(42);
+
+        pagination.displayTo(displayer);
+        verify(displayer).print("1 … 41 (42) 43 … 100");
+    }
+
+    // Page 42 of 100 : <br />`1 … 41 (42) 43 … 100`
+
+    // Page 5 of 9: <br />`1 … 4 (5) 6 … 9`
 }
