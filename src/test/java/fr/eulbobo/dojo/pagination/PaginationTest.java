@@ -49,7 +49,14 @@ public class PaginationTest {
         verify(displayer).print("1 … 41 (42) 43 … 100");
     }
 
-    // Page 42 of 100 : <br />`1 … 41 (42) 43 … 100`
+    @Test
+    void should_highlight_page_in_middle_of_list_with_9_pages() {
+        Displayer displayer = mock(Displayer.class);
+        Pagination pagination = Pagination.withPages(9);
 
-    // Page 5 of 9: <br />`1 … 4 (5) 6 … 9`
+        pagination.selectPage(5);
+
+        pagination.displayTo(displayer);
+        verify(displayer).print("1 … 4 (5) 6 … 9");
+    }
 }
