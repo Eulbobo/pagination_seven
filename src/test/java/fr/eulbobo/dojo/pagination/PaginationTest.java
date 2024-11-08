@@ -19,7 +19,9 @@ public class PaginationTest {
                 Arguments.of(100, 42, "1 … 41 (42) 43 … 100"),
                 Arguments.of(9, 5, "1 … 4 (5) 6 … 9"),
                 Arguments.of(9, 2, "1 (2) 3 4 5 … 9"),
-                Arguments.of(9, 4, "1 2 3 (4) 5 … 9")
+                Arguments.of(9, 4, "1 2 3 (4) 5 … 9"),
+                Arguments.of(9, 8, "1 … 5 6 7 (8) 9"),
+                Arguments.of(9, 6, "1 … 5 (6) 7 8 9")
         );
     }
 
